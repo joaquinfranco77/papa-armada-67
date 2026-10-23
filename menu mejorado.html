@@ -1,4 +1,4 @@
-<!DOCTYPE html><html lang="es"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><title>Papa Armada - Personajes y Niveles</title><style>
+<!DOCTYPE html><html lang="es"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><title>Papa Armada - Menú Pro</title><style>
 :root{color-scheme:dark;--bg:#14121a;--fg:#f3efe6;--ac:#e53935;--gr:#7bd34a;--pn:#241f2e;--gm:#4ac8d9;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
 html{scroll-padding-top:env(safe-area-inset-top,0px)}
 body{margin:0;background:var(--bg);color:var(--fg);font:16px system-ui,sans-serif;display:flex;justify-content:center}
@@ -13,7 +13,14 @@ button{background:var(--pn);color:var(--fg);border:2px solid var(--gr);border-ra
 button:hover:not(:disabled){background:#3a3248;transform:scale(1.05)}button:disabled{opacity:.4;cursor:default}
 .b{border-color:var(--ac);background:var(--ac);font-weight:700}
 .gem{color:var(--gm);font-weight:bold}
-small{opacity:.85}#ov{justify-content:safe center}#ov.m{justify-content:flex-start;background:#0009;padding:18px}.logo{font-size:clamp(34px,8vw,72px);color:#efe3c4;-webkit-text-stroke:3px #111;paint-order:stroke fill;letter-spacing:2px;margin-top:20px}.logo span{color:var(--ac)}.cd{display:flex;flex-direction:column;align-items:center;width:140px;background:var(--pn);border-radius:8px;padding:10px;border:2px solid #444}h3{margin:6px 0 0}button img{display:block;margin:0 auto 4px}
+small{opacity:.85}#ov{justify-content:safe center}#ov.m{justify-content:center;background:#000b;padding:18px}.logo{font-size:clamp(40px,10vw,85px);color:#efe3c4;-webkit-text-stroke:2px #111;paint-order:stroke fill;letter-spacing:2px;margin-bottom:5px;text-shadow:0 0 25px var(--ac), 6px 6px 0px #000}.logo span{color:var(--ac)}
+.v-col{display:flex;flex-direction:column;gap:16px;width:280px;margin:15px auto}
+.btn-pro{padding:16px;font-size:20px;font-weight:900;letter-spacing:2px;text-transform:uppercase;border:4px solid #444;border-radius:12px;background:#2a2438;color:#fff;box-shadow:0 6px 0 #000;transition:all 0.1s;cursor:pointer}
+.btn-pro:hover:not(:disabled){transform:translateY(2px);box-shadow:0 4px 0 #000;border-color:#666;background:#3a3248}
+.btn-pro:active:not(:disabled){transform:translateY(6px);box-shadow:0 0 0 #000}
+.btn-pro.b{border-color:var(--gr);color:var(--gr);background:#1f361c}
+.btn-pro.b:hover:not(:disabled){background:#2d4c2a;border-color:#9cf564;color:#fff}
+.cd{display:flex;flex-direction:column;align-items:center;width:140px;background:var(--pn);border-radius:8px;padding:10px;border:2px solid #444}h3{margin:6px 0 0}button img{display:block;margin:0 auto 4px}
 </style></head><body><div id="w"><canvas id="c" width="960" height="600"></canvas><div id="ov"></div></div><script>
 const C=document.getElementById('c'),X=C.getContext('2d'),O=document.getElementById('ov'),W=960,H=600;
 const R=(a,b)=>a+Math.random()*(b-a),D=(a,b)=>Math.hypot(a.x-b.x,a.y-b.y),WK=Object.keys;
@@ -118,9 +125,39 @@ if(t==0){g.beginPath();g.moveTo(-r*.4,-r*.8);g.lineTo(-r*.7,-r*1.5);g.moveTo(r*.
 g.restore()}
 
 function menuBg(){X.fillStyle='#0a0810';X.fillRect(0,0,W,H);ET.slice(0,4).forEach((e,i)=>{for(let j=0;j<2;j++){const a=S.t*.35*(j?-1:1)+i*1.57+j,d=j?230:160;blob({...e,t:i,x:W/2+Math.cos(a)*d*1.5,y:H/2+Math.sin(a)*d*.75,f:0,a:0})}});S.P.ws.forEach((k,i)=>k.a=S.t*1.5+i);potato(S.P)}
+
 function menu(){S={m:'menu',t:0,P:{x:W/2,y:H/2+40,mh:50,iv:0,u:{dm:2,as:1,mh:3,sp:1,ar:3,rg:1,rn:1,mg:1},ws:[{k:'pistola',t:4,a:0},{k:'cohete',t:4,a:0}]}};O.className='m';
-O.innerHTML=`<div><h1 class=logo>PAPA <span>ARMADA</span></h1><h2 class=gem>Gemas: ${pGemas}</h2></div><div class=row><button class=b onclick=uiChar()>JUGAR</button><button onclick=cat()>Armas e Info</button><button onclick=uiOpt()>Opciones</button></div>`;}
-function uiOpt(){O.innerHTML=`<h1>Opciones</h1><div class=row><button class=b onclick="if(confirm('¿Borrar todo el progreso y gemas?')){localStorage.clear();location.reload()}">Resetear Progreso</button><button onclick=menu()>Volver</button></div>`;}
+O.innerHTML=`
+ <div style="margin-bottom:10px">
+  <h1 class=logo>PAPA <span>ARMADA</span></h1>
+  <h2 class=gem style="text-shadow:0 0 10px var(--gm)">💎 Gemas: ${pGemas} 💎</h2>
+ </div>
+ <div class="v-col">
+  <button class="btn-pro b" onclick="uiChar()">JUGAR</button>
+  <button class="btn-pro" onclick="uiCtrl()">CONTROLES</button>
+  <button class="btn-pro" onclick="uiOpt()">OPCIONES</button>
+ </div>`;
+}
+
+function uiCtrl(){
+ O.className='';
+ O.innerHTML=`<h1>Controles y Guía</h1>
+ <div style="text-align:left;background:#0009;padding:20px;border-radius:12px;border:2px solid #555;max-width:550px;margin:15px auto;font-size:18px;line-height:1.5;">
+ <b>🎮 Movimiento:</b> W A S D o Flechas.<br>
+ <b>🎯 Ataque:</b> Automático a los enemigos cercanos.<br>
+ <b>⏸️ Pausa:</b> Presiona Esc o la tecla P.<br>
+ <b>💎 Progresión:</b> Recoge gemas derrotando Jefes (Ronda 10, 20 y 25) para comprar nuevos personajes.<br>
+ </div>
+ <div class=row><button onclick=cat()>Ver Arsenal y Enemigos</button><button class=b onclick=menu()>Volver al Menú</button></div>`;
+}
+
+function uiOpt(){
+ O.innerHTML=`<h1>Opciones</h1>
+ <div class=v-col style="margin-top:30px;">
+  <button class="btn-pro" style="border-color:var(--ac);color:var(--ac);" onclick="if(confirm('¿Borrar TODO tu progreso, gemas y niveles?')){localStorage.clear();location.reload()}">Borrar Progreso</button>
+  <button class="btn-pro b" onclick=menu()>Volver</button>
+ </div>`;
+}
 
 function buyC(i){if(pGemas>=CHR[i].c){pGemas-=CHR[i].c;pChars[i]=1;save();uiChar();}}
 function uiChar(){O.className='';let b='';CHR.forEach((c,i)=>{let p=pChars[i];
@@ -133,7 +170,7 @@ function uiWpn(){let b='';WK(WP).forEach(k=>{let w=WP[k];b+=`<div class=cd>${ico
 function uiLvl(){let b='';for(let i=1;i<=5;i++){let u=i<=maxLvl;b+=`<button ${u?'class=b':''} ${u?'':'disabled'} onclick="if(${u}){currLvl=${i};newGame()}">Nivel ${i}<br><small>${TH[i].n}</small></button>`;}
  O.innerHTML=`<h1>Elige Nivel</h1><div class=row style="max-width:750px">${b}</div><br><button onclick=uiWpn()>Volver</button>`;}
 
-function cat(){O.className='';const f=(a,fn)=>a.map(fn).join('');O.innerHTML=`<h1>Arsenal y bichos</h1><div class=row>${f(WK(WP),k=>`<div class=cd>${ico('w',k)}<b>${WP[k].n}</b><small>Daño ${WP[k].d}</small></div>`)}</div><br><div class=row>${f(NM,(n,i)=>`<div class=cd>${ico('e',i)}<b>${n}</b><small>${ED[i]}</small></div>`)}</div><br><button class=b onclick=menu()>Volver</button>`}
+function cat(){O.className='';const f=(a,fn)=>a.map(fn).join('');O.innerHTML=`<h1>Arsenal y bichos</h1><div class=row>${f(WK(WP),k=>`<div class=cd>${ico('w',k)}<b>${WP[k].n}</b><small>Daño ${WP[k].d}</small></div>`)}</div><br><div class=row>${f(NM,(n,i)=>`<div class=cd>${ico('e',i)}<b>${n}</b><small>${ED[i]}</small></div>`)}</div><br><button class=b onclick=uiCtrl()>Volver</button>`}
 function pz(){if(S.m=='play'){S.m='pause';O.className='';O.innerHTML='<h1>Pausa</h1><div class=row><button class=b onclick=pz()>Continuar</button><button onclick=menu()>Menú principal</button></div>'}else{S.m='play';O.innerHTML=''}}
 
 function potato(P){const u=P.u,c=k=>u[k]||0,sc=1+Math.min(.5,c('mh')*.07),n=P.ws.length,t=S.t,b=mv?Math.sin(t*16)*2:0;
